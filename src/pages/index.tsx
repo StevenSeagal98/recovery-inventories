@@ -54,12 +54,11 @@ export default function Home() {
     let msg: string = `You left some fields blank. Not a very thorough inventory, huh?`
     try {
         if(!validateForm()) {
-            
+            console.log(`MSG: ${msg}`)
             // fire error message
             return
-        } else {
-          navigator.clipboard.writeText(formToRender.questions.map((q, idx) => `${idx + 1}) ${q.label}: \n   ${q.value}`).join(`\n`))
         }
+        navigator.clipboard.writeText(formToRender.questions.map((q, idx) => `${idx + 1}) ${q.label}: \n   ${q.value}`).join(`\n`))
     } catch(err) {
       console.log(`ERR: ${err}`)
     }

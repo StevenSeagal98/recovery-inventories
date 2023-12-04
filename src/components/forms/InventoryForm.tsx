@@ -1,4 +1,15 @@
-import { useState, useId } from 'react'
+import { useState } from 'react'
+
+const setUniqueId = (prefix: string): string => {
+  let uniqueId: string = ''
+  try {
+    uniqueId += prefix.slice(0,3)
+    uniqueId += `${Date.now()}_${Math.floor(Math.random() * 1000)}`
+  } catch(err) {
+    console.log(`ERR: ${err}`)
+  }
+  return uniqueId
+}
 
 const TestForm = (props: { activeInventory: any }) => {
   const [inpObjVals, setInpObjVals] = useState(props.activeInventory.questions),
@@ -9,8 +20,8 @@ const TestForm = (props: { activeInventory: any }) => {
         }
 
   const renderedFormFields = props.activeInventory.questions.map((obj: any, idx: number) => {
-    obj.uniqueId = useId()
     const { label, inputType, placeholder, uniqueId, value } = obj
+    obj.uniqueId = setUniqueId(props.activeInventory.identifier)
     let element
     try {
       switch(inputType) {
